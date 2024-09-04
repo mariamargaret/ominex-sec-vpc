@@ -136,7 +136,7 @@ resource "aws_vpc_endpoint_service" "sec-gwlb_endpoint_service" {
 # Create a VPC Endpoint for the Endpoint Service GWLB-EW
 resource "aws_vpc_endpoint" "sec-gwlb_vpc_endpoint" {
   vpc_id            = aws_vpc.sec-vpc.id
-  service_name      = aws_vpc_endpoint_service.sec-gwlb_endpoint_service.servicename
+  service_name      = aws_vpc_endpoint_service.sec-gwlb_endpoint_service.service_name
   vpc_endpoint_type = "GatewayLoadBalancer"
   subnet_ids        = [aws_subnet.FW-MGMT-security[1].id]
 
