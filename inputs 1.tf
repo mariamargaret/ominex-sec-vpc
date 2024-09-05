@@ -1,6 +1,21 @@
 variable "vpc_cidr" {
   type = string
 }
+# Variable for AMI ID
+variable "ami_id" {
+  description = "The ID of the AMI to use for the EC2 instance"
+  type        = string
+  default     = "ami-0c55b159cbfafe1f0" # Replace with your AMI ID
+}
+
+# Variable for key pair name
+variable "key_name" {
+  description = "The name of the key pair to use for SSH access to the instance"
+  type        = string
+  default     = "omnex-test" # Replace with your key pair name
+}
+
+
 
 variable "subnets" {
   type = object({
