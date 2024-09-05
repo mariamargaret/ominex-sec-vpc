@@ -1,7 +1,7 @@
 resource "aws_instance" "app_server" {
   ami           = var.ami_id
   instance_type = "t2.micro"
-  subnet_id       = [aws_subnet.FW-MGMT-security[5].id]
+  subnet_id       = aws_subnet.FW-MGMT-security[5].id
   vpc_security_group_ids = [aws_security_group.appsg.id]
   key_name      = "omnex2" # Replace with your key pair
 
