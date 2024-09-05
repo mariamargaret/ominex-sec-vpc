@@ -46,7 +46,7 @@ resource "aws_security_group" "appsg" {
   }
 
   tags = {
-    Name = "app-sg"
+    Name = "bastionapp-sg"
   }
 }
 
