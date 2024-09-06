@@ -4,7 +4,7 @@ resource "aws_instance" "app_server" {
   subnet_id       = aws_subnet.FW-MGMT-security[5].id
   vpc_security_group_ids = [aws_security_group.appsg.id]
   key_name      = "omnex2" # Replace with your key pair
-
+  map_public_ip_on_launch = true
   tags = {
     Name = "bastion-server"
   }
