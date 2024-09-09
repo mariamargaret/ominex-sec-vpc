@@ -13,6 +13,6 @@ output "service_name" {
   value = aws_vpc_endpoint_service.sec-gwlb_endpoint_service.service_name
 }
 output "Bastion_ip" {
-  value = aws_vpc_endpoint_service.sec-gwlb_endpoint_service.service_name
+  value = aws_instance.app_server.id
 }
-aws_instance.app_server.
+
