@@ -69,6 +69,7 @@ variable "rt" {
       network_interface_id = string
       gateway_id           = string
       nat_gateway_id       = string
+      transit_gateway_id   = string
     }))
 
   }))
