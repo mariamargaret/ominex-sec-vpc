@@ -203,7 +203,7 @@ resource "aws_route_table" "pvt-rt" {
     content {
       cidr_block           = route.value.cidr
       gateway_id           = (route.value.gateway_id == "local" ? route.value.gateway_id: route.value.gateway_id == "" ? null: aws_internet_gateway.security-igw.id)
-      nat_gateway_id       = route.value.nat_gateway_id == "" ? null : route.value.nat_gateway_id
+      nat_gateway_id       = (route.value.nat_gateway_id == "nat" ? aws_nat_gateway.sec-nat.id: null)
       network_interface_id = (route.value.network_interface_id == "nic" ?  data.aws_network_interfaces.nic-tgw.ids[0]: null)
       vpc_endpoint_id      = ( route.value.vpc_endpoint_id == "subnet_2" ? aws_vpc_endpoint.sec-gwlb_vpc_endpoint.id: route.value.vpc_endpoint_id == "subnet_3" ? aws_vpc_endpoint.sec-gwlb_vpc_endpoint1.id: null)
        transit_gateway_id   =(route.value.transit_gateway_id == "tgwa" ? aws_ec2_transit_gateway_vpc_attachment.tgwa.id: null)
