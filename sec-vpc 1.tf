@@ -21,10 +21,10 @@ resource "aws_subnet" "FW-MGMT-security" {
 
 
 # Creating NICs
-/*resource "aws_network_interface" "nics" {
-  count     = length(var.subnets.subnet_cidr)
-  subnet_id = aws_subnet.FW-MGMT-security[count.index].id
-} */
+#resource "aws_network_interface" "nics" {
+#  count     = length(var.subnets.subnet_cidr)
+#  subnet_id = aws_subnet.FW-MGMT-security[count.index].id
+#}
 
 # Create an IGW for vpc
 
@@ -73,6 +73,7 @@ data "aws_network_interfaces" "nic-tgw" {
     name   = "subnet-id"
     values = [aws_subnet.FW-MGMT-security[3].id]  # Replace with your subnet ID
   }
+depends_on = [aws_ec2_transit_gateway_vpc_attachment.tgwa, aws_ec2_transit_gateway.sec-tgw]
 }
 
 
