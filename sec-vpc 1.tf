@@ -21,10 +21,10 @@ resource "aws_subnet" "FW-MGMT-security" {
 
 
 # Creating NICs
-resource "aws_network_interface" "nics" {
+/*resource "aws_network_interface" "nics" {
   count     = length(var.subnets.subnet_cidr)
   subnet_id = aws_subnet.FW-MGMT-security[count.index].id
-}
+} */
 
 # Create an IGW for vpc
 
@@ -64,6 +64,14 @@ resource "aws_ec2_transit_gateway" "sec-tgw" {
 
   tags = {
     Name = var.tgw.tgwname
+  }
+}
+
+# fetching nic id from the subnet(tGW)
+data "aws_network_interfaces" "nic-tgw" {
+  filter {
+    name   = "subnet-id"
+    values = [aws_subnet.FW-MGMT-security[3].id]  # Replace with your subnet ID
   }
 }
 
@@ -195,7 +203,7 @@ resource "aws_route_table" "pvt-rt" {
       cidr_block           = route.value.cidr
       gateway_id           = (route.value.gateway_id == "local" ? route.value.gateway_id: route.value.gateway_id == "" ? null: aws_internet_gateway.security-igw.id)
       nat_gateway_id       = route.value.nat_gateway_id == "" ? null : route.value.nat_gateway_id
-      network_interface_id = (route.value.network_interface_id == "nic" ?  aws_network_interface.nics[3].id: null)
+      network_interface_id = (route.value.network_interface_id == "nic" ?  data.aws_network_interfaces.nic-tgw.id: null)
       vpc_endpoint_id      = ( route.value.vpc_endpoint_id == "subnet_2" ? aws_vpc_endpoint.sec-gwlb_vpc_endpoint.id: route.value.vpc_endpoint_id == "subnet_3" ? aws_vpc_endpoint.sec-gwlb_vpc_endpoint1.id: null)
 
     }
