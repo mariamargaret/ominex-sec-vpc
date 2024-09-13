@@ -6,7 +6,7 @@ output "vpc_endpoint_2_EW" {
   value = aws_vpc_endpoint.sec-gwlb_vpc_endpoint.id 
 }
 
-output "tgw-id" {
+output "transit_gateway_id" {
   value = aws_ec2_transit_gateway.sec-tgw.id
 }
 output "service_name" {
