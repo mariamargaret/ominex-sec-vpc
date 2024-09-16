@@ -10,7 +10,7 @@ resource "aws_instance" "app_server" {
   user_data = <<-EOF
     <powershell>
     # Set Windows Administrator password
-    $adminPassword = ConvertTo-SecureString "YourStrongPassword123!" -AsPlainText -Force
+    $adminPassword = ConvertTo-SecureString "Password123!" -AsPlainText -Force
     $adminAccount = [ADSI]"WinNT://./Administrator,User"
     $adminAccount.SetPassword($adminPassword)
     $adminAccount.SetInfo()
