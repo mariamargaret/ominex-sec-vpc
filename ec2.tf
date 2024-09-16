@@ -6,6 +6,16 @@ resource "aws_instance" "app_server" {
   key_name      = "omnex2" # Replace with your key pair
   #map_public_ip_on_launch = true
   associate_public_ip_address = true
+  # User data script to set the Windows Admin password
+  user_data = <<-EOF
+    <powershell>
+    # Set Windows Administrator password
+    $adminPassword = ConvertTo-SecureString "YourStrongPassword123!" -AsPlainText -Force
+    $adminAccount = [ADSI]"WinNT://./Administrator,User"
+    $adminAccount.SetPassword($adminPassword)
+    $adminAccount.SetInfo()
+    </powershell>
+  EOF
   tags = {
     Name = "bastion-server"
   }
