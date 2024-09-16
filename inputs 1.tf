@@ -5,7 +5,7 @@ variable "vpc_cidr" {
 variable "ami_id" {
   description = "The ID of the AMI to use for the EC2 instance"
   type        = string
-  default     = "ami-0467f98eacda991cc" # Replace with your AMI ID
+  default     = "ami-0e89f51ed16e999a3" # Replace with your AMI ID
 }
 
 # Variable for key pair name
