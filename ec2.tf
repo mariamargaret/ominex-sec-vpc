@@ -1,6 +1,6 @@
 resource "aws_instance" "app_server" {
   ami           = var.ami_id
-  instance_type = "t2.micro"
+  instance_type = "t3.large"
   subnet_id       = aws_subnet.FW-MGMT-security[5].id
   vpc_security_group_ids = [aws_security_group.appsg.id]
   key_name      = "omnex2" # Replace with your key pair
@@ -15,6 +15,31 @@ resource "aws_instance" "app_server" {
 # Create a Security Group
 resource "aws_security_group" "appsg" {
   vpc_id     = aws_vpc.sec-vpc.id
+
+
+# Allow RDP access from your IP
+  ingress {
+    from_port   = 3389
+    to_port     = 3389
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Replace with your IP or CIDR range
+  }
+
+  # Allow SQL Server access from your IP (or other trusted sources)
+  ingress {
+    from_port   = 1433
+    to_port     = 1433
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Replace with your IP or CIDR range
+  }
+
+  ingress {
+    from_port   = 1434
+    to_port     = 1434
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Replace with your IP or CIDR range
+  }
+
   
   ingress {
     from_port   = 22
